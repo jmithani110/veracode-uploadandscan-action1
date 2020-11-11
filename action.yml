@@ -47,7 +47,7 @@ inputs:
     description: 'replacement'
     required: false
   sandboxid:
-    description: 'replacement'
+    description: 'sandboxid'
     required: false
   scanallnonfataltoplevelmodules:
     description: 'All top level modules'
@@ -62,8 +62,12 @@ inputs:
     description: 'teams'
     required: false
   toplevel:
-    description: 'teams'
+    description: 'only scan the top-level modules in your files'
     required: false
+  maxretrycount:
+    description: "Number of times to retry polling for the status of a failed build"
+    required: false
+  
   
     
  
@@ -94,3 +98,4 @@ runs:
     - ${{ inputs.selectedpreviously }}
     - ${{ inputs.teams }}
     - ${{ inputs.toplevel }}
+    - ${{ inputs.maxretrycount }}
