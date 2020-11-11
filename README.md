@@ -10,7 +10,7 @@ This action runs the Veracode Java Wrapper's 'upload and scan' action.
 **Default:** '${{ github.repository }}'
 
 ### `createprofile`
-**Required:**  INTEGER - True to create a new application profile.
+**Required:**  BOOLEAN - True to create a new application profile.
 
 **Default:** true
 
@@ -73,6 +73,9 @@ This action runs the Veracode Java Wrapper's 'upload and scan' action.
 **Optional** BOOLEAN - When set to true, Veracode only scans the top-level modules in your files.
 Veracode recommends that you use the toplevel parameter if you want to ensure the scan completes even though there are non-fatal errors, such as unsupported frameworks.
 
+### `maxretrycount`
+**Optional** INTEGER - Number of times to retry polling for the status of a failed build. Value range is 0 to 5, where 0 specifies to not retry polling.
+
 ## Example usage
 
 The following example will upload all files contained within the folder_to_upload to Veracode and start a static scan.
@@ -86,7 +89,7 @@ The veracode credentials are read from github secrets. NEVER STORE YOUR SECRETS 
 - uses: actions/upload-artifact@v2 # Copy files from repository to docker container so the next uploadandscan action can access them.
   with:
     path: folder_to_upload/*.jar # Wildcards can be used to filter the files copied into the container. See: https://github.com/actions/upload-artifact
-- uses: actions/veracode-uploadandscan-action@master # Run the uploadandscan action. Inputs are described above.
+- uses: veracode/veracode-uploadandscan-action@master # Run the uploadandscan action. Inputs are described above.
   with:
     filepath: 'folder_to_upload/'
     vid: '${{ secrets.VERACODE_ID }}'
